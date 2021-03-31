@@ -1,0 +1,196 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=gb2312">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>unit transfer by Max</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@100&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+<script type="text/javascript">
+var computed = false
+var destination = "/"
+var decimal = 0
+
+function convert(entryform, from, to) {
+	convertfrom = from.selectedIndex
+	convertto = to.selectedIndex
+	entryform.display.value = Math.round(entryform.input.value * from[convertfrom].value / to[convertto].value * 100) / 100
+}
+
+function addChar(input, character) {
+	if ((character == '.' && decimal == "0") || character != '.') {
+		(input.value == "" || input.value == "0") ? input.value = character: input.value += character
+		convert(input.form, input.form.measure1, input.form.measure2)
+
+		computed = true
+		if (character == '.') {
+			decimal = 1
+		}
+	}
+}
+
+function openVothcom() {
+	window.open("", "Display window", "toolbar=no,directories=no,menubar=no");
+}
+
+function clear(form) {
+	form.input.value = 0
+	form.display.value = 0
+	decimal = 0
+}
+
+function changeBackground(hexNumber) {
+	document.bgColor = hexNumber
+}
+
+//这行有错误，也没没什么用
+//entryform.display.value = Math.round(entryform.input.value * from[convertfrom].value / to[convertto].value)
+
+function myFunction() {
+	document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function swap(form) {
+	for (var i = 0; i < form.measure1.options.length; i++) {
+		var t = form.measure1.options[i].hidden;
+		form.measure1.options[i].hidden = form.measure2.options[i].hidden;
+		form.measure2.options[i].hidden = t;
+	}
+	var t = form.measure1.value;
+	form.measure1.value = form.measure2.value;
+	form.measure2.value = t;
+	convert(form, form.measure1, form.measure2)
+
+	var aa = document.getElementById('select1').value
+	var bb = document.getElementById('select2').value
+	document.getElementById('select1').value = bb
+	document.getElementById('select2').value = aa
+}
+
+</script>
+	</head>
+	<body>
+		<div class="frame">
+			<div class="title">UNIT TRANSFER</div>
+			<FORM method=post name=calculator>
+				<div class="inputbox">
+					<table class="inputtab">
+						<tr>
+							<td>
+								<input class="country" type="text" id="select1" value="CHN" readonly="readonly">
+							</td>
+							<td>
+								<INPUT class="inputvalue" name=input onchange="convert(this.form,form.measure1, form.measure2)" placeholder="input">
+							</td>
+							<td>
+								<SELECT class="selectvalue" name=measure1 onchange="convert(this.form,this, form.measure2)">
+                                    <OPTION selected value=0.01> cm 
+
+										<OPTION value=1> m 
+	
+										<OPTION value=1000> km 
+	
+										<OPTION hidden value=0.3048> feet 
+	
+										<OPTION hidden value=0.9144> yds  
+												
+										<OPTION hidden value=1610> mi 
+	
+								</SELECT>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input class="country" type="text" id="select2" value="UK" readonly="readonly">
+							</td>
+							<td>
+								<INPUT class="inputvalue" name=display placeholder="output">
+							</td>
+							<td>
+								<SELECT class="selectvalue" name=measure2 onchange="convert(this.form,form.measure1, this)">
+                                    <OPTION hidden value=0.01> cm 
+
+										<OPTION hidden value=1> m 
+	
+										<OPTION hidden value=1000> km 
+	
+										<OPTION selected value=0.3048> feet 
+	
+										<OPTION alue=0.9144> yds  
+												
+										<OPTION value=1610> mi 
+								</SELECT>
+							</td>
+						</tr>
+					</table>
+					<table class="inputtab2">
+						<tr>
+							<td>
+								<input type="button" onclick="swap(this.form);" value="&#x2191 &#x2193" class="swapbutton" />
+							</td>
+							<td>
+								<select class="dropdown" name="list" onchange="window.location=this.value; ">
+									<option value="mass.html"> mass </option>
+                                    <option value="index.html"> area </option>
+                                    <option value="volume.html"> volume </option>
+                                    <option selected value="lenth.html"> length </option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<TABLE margin=9 cellPadding=9 cellspacing="9" class="numberpad">
+				<TBODY>
+					<TR>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'7')" type=button value=7 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'8')" type=button value=8 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'9')" type=button value=9 class="abutton">
+						</TD>
+					</TR>
+					<TR>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'4')" type=button value=4 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'5')" type=button value=5 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'6')" type=button value=6 class="abutton">
+						</TD>
+					</TR>
+					<TR>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'1')" type=button value=1 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'2')" type=button value=2 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'3')" type=button value=3 class="abutton">
+						</TD>
+					</TR>
+					<TR>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'0')" type=button value=0 class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT onclick="addChar(this.form.input,'.')" type=button value=. class="abutton">
+						</TD>
+						<TD class="button">
+							<INPUT type="reset" type=button value=c class="abutton1">
+						</TD>
+					</TR>
+				</TBODY>
+				</TABLE>
+			</FORM>
+		</div>
+	</body>
+</html>
